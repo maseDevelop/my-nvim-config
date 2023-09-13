@@ -1,6 +1,10 @@
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+--
+
+-- Set relativenumber 
+vim.o.relativenumber = true
 
 -- Set highlight on search
 vim.o.hlsearch = false
