@@ -7,22 +7,25 @@
     build = ':TSUpdate',
     config = function ()
 -- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
+-- See `:help nvim-treesitter`:h nvim-treesitter-commands 
+
+-- TSInstsall all - to install all of the parsers
+
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
+
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
-
-
-
-
   -- Autoinstall languages that are not installed.
   auto_install = true,
 
+  sync_install = false,
+
+  ignore_install = {},
 
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
-    enable = true,
+    enable = false, -- Have turned of selection for now ;)
     keymaps = {
       init_selection = '<c-space>',
       node_incremental = '<c-space>',
@@ -81,5 +84,5 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-end 
+end
 }
