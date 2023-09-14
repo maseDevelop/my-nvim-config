@@ -51,8 +51,12 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Yank to system clipboard
-vim.keymap.set('n', '<Leader>y', '"+y', { silent = true })
+-- Yank and Paste to system clipboard
+vim.keymap.set('v', '<leader>y', '"+y', { silent = true })
+vim.keymap.set('n', '<leader>y', '"+y', { silent = true })
+vim.keymap.set('n', '<leader>yy', '"+yy', { silent = true })
+vim.keymap.set('n', '<leader>p', '"+p', { silent = true })
+vim.keymap.set('v', '<leader>p', '"+p', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
