@@ -8,14 +8,15 @@ return {
 
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
+
+    -- Scala metals
+    { 'scalameta/nvim-metals', dependencies = { 'nvim-lua/plenary.nvim' } }
   },
-
   config = function()
-
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
     local on_attach = function(_, bufnr)
@@ -45,7 +46,7 @@ return {
 
       -- See `:help K` for why this keymap
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+      -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
       -- Lesser used LSP functionality
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -56,9 +57,10 @@ return {
       end, '[W]orkspace [L]ist Folders')
 
       -- Create a command `:Format` local to the LSP buffer
-      vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
-      end, { desc = 'Format current buffer with LSP' })
+      -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+      --   vim.lsp.buf.format()
+      -- end, { desc = 'Format current buffer with LSP' })
+      nmap('<leader>f', function() vim.lsp.buf.format({ async = true }) end, '[F]ormat')
     end
 
     -- Enable the following language servers
@@ -70,19 +72,77 @@ return {
     --  If you want to override the default filetypes that your language server will attach to you can
     --  define the property 'filetypes' to the map in question.
     local servers = {
-      -- clangd = {},
       -- gopls = {},
-      -- pyright = {},
+      pylsp = {
+        pylsp = {
+          filetypes = { 'python' },
+          configurationSources = { 'flake8' },
+          plugins = {
+            pylint = {
+              enabled = true,
+            },
+            flake8 = {
+              maxLineLength = 100,
+            },
+            pyflakes = {
+              enabled = false,
+            },
+            pycodestyle = {
+              enabled = false,
+            },
+            rope_completion = {
+              enabled = true,
+            },
+          },
+        },
+      },
+      html = { filetypes = { 'html', 'twig', 'hbs' } },
+      clojure_lsp = {},
+      sqlls = {},
+      jsonls = {},
+      cssls = {},
+      dockerls = {},
+      graphql = {},
       -- rust_analyzer = {},
       tsserver = {},
-      -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+      -- eslint = {},
+      -- ltex = {
+      --   ltex = {
+      --     language = 'en-NZ',
+      --     additionalRules = {
+      --       enablePickyRules = false,
+      --     },
+      --     dictionary = {
+      --       ['en-NZ'] = {
+      --         'firefox',
+      --         'k9s',
+      --         'neovim',
+      --         'nvim',
+      --         'Ness',
+      --         'qutebrowser',
+      --         'rofi',
+      --         'tmux',
+      --       }
+      --     },
+      --     checkFrequency = 'edit',
+      --     hiddenFalsePositives = {},
+      --     hiddenTruePositives = {},
+      --   }
+      -- },
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
         },
       },
+      yamlls = {
+        yaml = {
+          keyOrdering = false,
+        },
+      },
+      helm_ls = {
+        filetypes = { 'helm ' }
+      }
     }
 
     -- Setup neovim lua configuration
@@ -109,5 +169,23 @@ return {
         }
       end
     }
-  end
+
+    -- just scala metals
+    require('lspconfig')['metals'].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {},
+      filetypes = { 'scala', 'sbt', 'java' },
+    }
+
+    -- disable semantic tokens for metals
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client.name == "metals" then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
+      end,
+    })
+  end,
 }
