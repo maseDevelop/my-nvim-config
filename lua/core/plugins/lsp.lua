@@ -111,8 +111,3 @@ return {
     }
   end
 }
-<<<<<<< HEAD
-  end
-}
-=======
->>>>>>> 84479bc (chore: fix typo)

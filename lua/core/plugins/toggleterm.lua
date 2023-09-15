@@ -12,6 +12,6 @@ return {
       width = 150,
       height = 30,
       winblend = 3,
-   },
+    },
   }
 }
