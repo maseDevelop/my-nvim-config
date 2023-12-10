@@ -4,6 +4,9 @@ require('keymaps')
 -- Import General Options
 require('options')
 
+-- Import auto cmd functions
+require('autocmd')
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
