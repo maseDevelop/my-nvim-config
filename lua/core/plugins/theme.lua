@@ -1,9 +1,11 @@
 return {
-  -- Theme inspired by Atom
-  'navarasu/onedark.nvim',
+  "catppuccin/nvim",
+  name = "catppuccin",
   priority = 1000,
   config = function()
-    vim.cmd.colorscheme 'onedark'
+    require("catppuccin").setup()
+
+    -- setup must be called before loading
+    vim.cmd.colorscheme "catppuccin"
   end,
 }
-
