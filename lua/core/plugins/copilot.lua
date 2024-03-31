@@ -34,7 +34,6 @@ return {
       svn = false,
       cvs = false,
       ["."] = true,
-      rust = false, -- while learning rust, no copilot
     },
   },
   config = function(_, opts)
