@@ -17,8 +17,7 @@ return {
       end,
     },
   },
-  config = function ()
-
+  config = function()
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
     require('telescope').setup {
@@ -61,5 +60,13 @@ return {
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
+
+    -- Git and telescope collab
+    vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { desc = 'Search/View [G]it [C]ommits' })
+    vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = 'Search/View [G]it [S]tatus' })
+    vim.keymap.set('n', '<leader>gz', require('telescope.builtin').git_stash,
+      { desc = 'Search/View [G]it Stash Item[Z]' })
+    vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches,
+      { desc = 'Search/View [G]it [B]ranches' })
   end
 }
