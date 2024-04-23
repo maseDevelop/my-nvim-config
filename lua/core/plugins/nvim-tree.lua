@@ -13,8 +13,10 @@ return {
     require("nvim-tree").setup {
       view = {
         adaptive_size = true
+      },
+      git = {
+        ignore = false
       }
     }
   end,
 }
-
