@@ -74,25 +74,23 @@ return {
     local servers = {
       -- gopls = {},
       pylsp = {
-        pylsp = {
-          filetypes = { 'python' },
-          configurationSources = { 'flake8' },
-          plugins = {
-            pylint = {
-              enabled = true,
-            },
-            flake8 = {
-              maxLineLength = 100,
-            },
-            pyflakes = {
-              enabled = false,
-            },
-            pycodestyle = {
-              enabled = false,
-            },
-            rope_completion = {
-              enabled = true,
-            },
+        filetypes = { 'python' },
+        configurationSources = { 'flake8' },
+        plugins = {
+          pylint = {
+            enabled = true,
+          },
+          flake8 = {
+            maxLineLength = 100,
+          },
+          pyflakes = {
+            enabled = false,
+          },
+          pycodestyle = {
+            enabled = false,
+          },
+          rope_completion = {
+            enabled = true,
           },
         },
       },
@@ -103,7 +101,12 @@ return {
       cssls = {},
       dockerls = {},
       graphql = {},
-      -- rust_analyzer = {},
+      rust_analyzer = {
+        diagnostics = {
+          enable = false,
+
+        }
+      },
       tsserver = {},
       -- eslint = {},
       -- ltex = {
