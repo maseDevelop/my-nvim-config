@@ -9,3 +9,4 @@
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
