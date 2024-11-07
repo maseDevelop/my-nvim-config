@@ -72,93 +72,12 @@ return {
     --  If you want to override the default filetypes that your language server will attach to you can
     --  define the property 'filetypes' to the map in question.
     local servers = {
-      -- gopls = {},
-      pylsp = {
-        filetypes = { 'python' },
-        configurationSources = { 'flake8' },
-        plugins = {
-          pylint = {
-            enabled = true,
-          },
-          flake8 = {
-            maxLineLength = 100,
-          },
-          pyflakes = {
-            enabled = false,
-          },
-          pycodestyle = {
-            enabled = false,
-          },
-          rope_completion = {
-            enabled = true,
-          },
-        },
-      },
-      html = { filetypes = { 'html', 'twig', 'hbs' } },
-      clojure_lsp = {},
-      sqlls = {},
-      jsonls = {},
-      cssls = {},
-      dockerls = {},
-      graphql = {},
-      rust_analyzer = {
-        imports = {
-          granularity = {
-            group = "module",
-          },
-          prefix = "self",
-        },
-        cargo = {
-          buildScripts = {
-            enable = true,
-          },
-        },
-        procMacro = {
-          enable = true
-        },
-        diagnostics = {
-          enable = false,
-
-        }
-      },
-      tsserver = {},
-      -- eslint = {},
-      -- ltex = {
-      --   ltex = {
-      --     language = 'en-NZ',
-      --     additionalRules = {
-      --       enablePickyRules = false,
-      --     },
-      --     dictionary = {
-      --       ['en-NZ'] = {
-      --         'firefox',
-      --         'k9s',
-      --         'neovim',
-      --         'nvim',
-      --         'Ness',
-      --         'qutebrowser',
-      --         'rofi',
-      --         'tmux',
-      --       }
-      --     },
-      --     checkFrequency = 'edit',
-      --     hiddenFalsePositives = {},
-      --     hiddenTruePositives = {},
-      --   }
-      -- },
+      ts_ls = {},
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
         },
-      },
-      yamlls = {
-        yaml = {
-          keyOrdering = false,
-        },
-      },
-      helm_ls = {
-        filetypes = { 'helm ' }
       }
     }
 
@@ -186,23 +105,5 @@ return {
         }
       end
     }
-
-    -- just scala metals
-    require('lspconfig')['metals'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {},
-      filetypes = { 'scala', 'sbt', 'java' },
-    }
-
-    -- disable semantic tokens for metals
-    vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client.name == "metals" then
-          client.server_capabilities.semanticTokensProvider = nil
-        end
-      end,
-    })
   end,
 }
