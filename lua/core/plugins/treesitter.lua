@@ -5,9 +5,9 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   build = ':TSUpdate',
-  config = function ()
+  config = function()
     -- [[ Configure Treesitter ]]
-    -- See `:help nvim-treesitter`:h nvim-treesitter-commands 
+    -- See `:help nvim-treesitter`:h nvim-treesitter-commands
 
     -- TSInstsall all - to install all of the parsers
 
