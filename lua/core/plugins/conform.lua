@@ -18,10 +18,11 @@ return {
   opts = {
     -- Define your formatters
     formatters_by_ft = {
+      html = { "superhtml" },
       lua = { "stylua" },
       python = { "black" },
-      javascript = { { "prettierd", "prettier" } },
-      typescript = { { "prettierd", "prettier" } },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
+      typescript = { "prettierd", "prettier", stop_after_first = true },
     },
     -- Set up format-on-save
     --format_on_save = { timeout_ms = 500, lsp_fallback = true },
