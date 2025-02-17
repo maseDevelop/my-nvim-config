@@ -86,6 +86,7 @@ return {
           },
         },
       },
+      jdtls = {},
       ts_ls = {},
       lua_ls = {
         Lua = {
