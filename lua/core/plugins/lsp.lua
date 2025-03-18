@@ -86,6 +86,7 @@ return {
           },
         },
       },
+      terraformls = {},
       jdtls = {},
       ts_ls = {},
       lua_ls = {

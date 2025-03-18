@@ -4,6 +4,8 @@ return {
     -- Event to trigger linters
     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
     linters_by_ft = {
+      terraform = { "terraform_validate" },
+      tf = { "terraform_validate" },
       fish = { "fish" },
       python = { "flake8" }
       -- Use the "*" filetype to run linters on all filetypes.

@@ -18,12 +18,16 @@ return {
   opts = {
     -- Define your formatters
     formatters_by_ft = {
+      hcl = { "packer_fmt" },
+      tf = { "terraform_fmt" },
+      ["terraform-vars"] = { "terraform_fmt" },
       html = { "superhtml" },
       lua = { "stylua" },
       python = { "black" },
       javascript = { "prettierd", "prettier", stop_after_first = true },
       typescript = { "prettierd", "prettier", stop_after_first = true },
       clojure = { "cljstyle" },
+      terraform = { "terraform" },
     },
     -- Set up format-on-save
     --format_on_save = { timeout_ms = 500, lsp_fallback = true },
