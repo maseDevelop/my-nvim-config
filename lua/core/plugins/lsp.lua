@@ -61,28 +61,6 @@ return {
           telemetry = { enable = false },
         },
       },
-      metals = {
-        cmd = { "metals" },
-        filetypes = { "scala" },
-        root_dir = require('lspconfig.util').root_pattern(
-          "build.sbt",
-          "build.sc",
-          "build.gradle",
-          "pom.xml"
-        ),
-        init_options = {
-          compilerOptions = {
-            snippetAutoIndent = false,
-          },
-          isHttpEnabled = true,
-          statusBarProvider = "show-message",
-        },
-        settings = {
-          workspace = {
-            configuration = false,
-          },
-        },
-      },
     }
 
     -- Setup neovim lua configuration
