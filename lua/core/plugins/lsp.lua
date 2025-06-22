@@ -77,7 +77,7 @@ return {
       ensure_installed = vim.tbl_keys(servers),
     }
 
-    mason_lspconfig.setup_handlers {
+    mason_lspconfig.setup {
       function(server_name)
         local server_config = {
           capabilities = capabilities,

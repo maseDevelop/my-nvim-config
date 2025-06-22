@@ -2,8 +2,10 @@
 return {
   {
     "chrisgrieser/nvim-origami",
-    event = "BufReadPost", -- later will not save folds
-    opts = true,
+    tag = "v1.9",
+    event = "VeryLazy",
+    opts = {}, -- needed even when using default config
+
   },
   {
     "kevinhwang91/nvim-ufo",
