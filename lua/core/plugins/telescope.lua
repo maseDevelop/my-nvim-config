@@ -43,15 +43,17 @@ return {
     pcall(require('telescope').load_extension, 'fzf')
 
     -- See `:help telescope.builtin`
+
+
     vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
     vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>/', function()
-      -- You can pass additional configuration to telescope to change theme, layout, etc.
+      -- you can pass additional configuration to telescope to change theme, layout, etc.
       require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         winblend = 10,
         previewer = false,
       })
-    end, { desc = '[/] Fuzzily search in current buffer' })
+    end, { desc = '[/] fuzzily search in current buffer' })
 
     vim.keymap.set('n', '<leader>w/', function()
       require("telescope.builtin").grep_string({ search_dirs = { vim.fn.expand("%:p") } })
@@ -63,7 +65,21 @@ return {
     end, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('v', '<leader>sw', 'y<Esc>:Telescope live_grep default_text=<C-r>0<CR>', { silent = true })
+    vim.keymap.set('v', '<leader>sw', function()
+      local function get_visual_selection()
+        vim.cmd('noau normal! "vy"')
+        local text = vim.fn.getreg("v")
+        text = text:gsub("\n", ""):gsub("^%s+", ""):gsub("%s+$", "")
+        return text
+      end
+
+      local selection = get_visual_selection()
+      if selection ~= "" then
+        require('telescope.builtin').live_grep({ default_text = selection })
+      else
+        print("No selection to grep")
+      end
+    end, { desc = '[S]earch current [W]ord in visual mode' })
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
