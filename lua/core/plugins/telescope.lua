@@ -83,6 +83,9 @@ return {
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
+    vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]eturn to previous picker values' })
+    vim.keymap.set('n', '<leader>sp', require('telescope.builtin').pickers, { desc = '[S]earch previous [P]icker search values' })
+
 
     -- Git and telescope collab
     vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { desc = 'Search/View [G]it [C]ommits' })
