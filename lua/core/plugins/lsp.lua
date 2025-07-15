@@ -7,7 +7,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
@@ -54,7 +54,7 @@ return {
       },
       terraformls = {},
       jdtls = {},
-      tsserver = {},
+      ts_ls = {},
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
