@@ -59,7 +59,7 @@ return {
       require("telescope.builtin").grep_string({ search_dirs = { vim.fn.expand("%:p") } })
     end, { desc = 'Search for [W]ord in current buffer [/]' })
 
-    vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
+    vim.keymap.set('n', '<leader>ff', require('telescope.builtin').git_files, { desc = 'Search git [F][F]iles' })
     vim.keymap.set('n', '<leader>sf', function()
       require('telescope.builtin').find_files({ hidden = true, no_ignore = true })
     end, { desc = '[S]earch [F]iles' })
@@ -80,7 +80,7 @@ return {
         print("No selection to grep")
       end
     end, { desc = '[S]earch current [W]ord in visual mode' })
-    vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>gg', require('telescope.builtin').live_grep, { desc = 'earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]eturn to previous picker values' })
