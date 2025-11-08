@@ -18,6 +18,7 @@ return {
   opts = {
     -- Define your formatters
     formatters_by_ft = {
+      swift = { "swiftformat" },
       hcl = { "packer_fmt" },
       tf = { "terraform_fmt" },
       ["terraform-vars"] = { "terraform_fmt" },

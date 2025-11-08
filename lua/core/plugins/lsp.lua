@@ -1,6 +1,13 @@
 return {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    opts = {
+        -- Mason-managed servers to auto-install
+        ensure_installed = { "pylsp", "terraformls", "jdtls", "ts_ls", "lua_ls" },
+        -- Auto-enable Mason servers, but exclude external ones
+        automatic_enable = {
+            exclude = { "sourcekit" }
+        },
+    },
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
@@ -34,35 +41,62 @@ return {
             end,
         })
 
+        -- Setup capabilities
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-        -- Enable the following language servers
-        local servers = {
-            pylsp = {
-                filetypes = { 'python' },
-                configurationSources = { 'flake8' },
-                plugins = {
-                    pylint = { enabled = true },
-                    flake8 = { maxLineLength = 100 },
-                    pyflakes = { enabled = false },
-                    pycodestyle = { enabled = false },
-                    rope_completion = { enabled = true },
+        -- Configure Mason-managed servers with vim.lsp.config()
+        -- These will be auto-enabled by mason-lspconfig's automatic_enable feature
+        vim.lsp.config("pylsp", {
+            capabilities = capabilities,
+            settings = {
+                pylsp = {
+                    configurationSources = { 'flake8' },
+                    plugins = {
+                        pylint = { enabled = true },
+                        flake8 = { maxLineLength = 100 },
+                        pyflakes = { enabled = false },
+                        pycodestyle = { enabled = false },
+                        rope_completion = { enabled = true },
+                    },
                 },
             },
-            terraformls = {},
-            jdtls = {},
-            ts_ls = {},
-            lua_ls = {
+        })
+
+        vim.lsp.config("lua_ls", {
+            capabilities = capabilities,
+            settings = {
                 Lua = {
                     workspace = { checkThirdParty = false },
                     telemetry = { enable = false },
                 },
             },
-        }
-
-        require("mason-lspconfig").setup({
-            automatic_enable = true,
-            ensure_installed = servers,
         })
-    end,
 
+        vim.lsp.config("terraformls", {
+            capabilities = capabilities,
+        })
+
+        vim.lsp.config("jdtls", {
+            capabilities = capabilities,
+        })
+
+        vim.lsp.config("ts_ls", {
+            capabilities = capabilities,
+        })
+
+        -- Configure external (system-provided) servers
+        -- These need manual vim.lsp.enable() since they're excluded from automatic_enable
+        vim.lsp.config("sourcekit", {
+            capabilities = vim.tbl_deep_extend("force", capabilities, {
+                workspace = {
+                    didChangeWatchedFiles = {
+                        dynamicRegistration = true,
+                    },
+                },
+            }),
+            cmd = { vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")) },
+        })
+        vim.lsp.enable("sourcekit")
+
+    end,
 }

@@ -4,6 +4,7 @@ return {
     -- Event to trigger linters
     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
     linters_by_ft = {
+      swift = { "swiftlint" },
       terraform = { "terraform_validate" },
       tf = { "terraform_validate" },
       fish = { "fish" },
