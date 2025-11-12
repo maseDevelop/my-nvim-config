@@ -1,13 +1,6 @@
 return {
     "mason-org/mason-lspconfig.nvim",
-    opts = {
-        -- Mason-managed servers to auto-install
-        ensure_installed = { "pylsp", "terraformls", "jdtls", "ts_ls", "lua_ls" },
-        -- Auto-enable Mason servers, but exclude external ones
-        automatic_enable = {
-            exclude = { "sourcekit" }
-        },
-    },
+    opts = {},
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
@@ -44,8 +37,7 @@ return {
         -- Setup capabilities
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-        -- Configure Mason-managed servers with vim.lsp.config()
-        -- These will be auto-enabled by mason-lspconfig's automatic_enable feature
+        -- Configure Mason-managed servers 
         vim.lsp.config("pylsp", {
             capabilities = capabilities,
             settings = {
@@ -61,6 +53,7 @@ return {
                 },
             },
         })
+        vim.lsp.enable("pylsp")
 
         vim.lsp.config("lua_ls", {
             capabilities = capabilities,
@@ -71,21 +64,24 @@ return {
                 },
             },
         })
+        vim.lsp.enable("lua_ls")
 
         vim.lsp.config("terraformls", {
             capabilities = capabilities,
         })
+        vim.lsp.enable("terraformls")
 
         vim.lsp.config("jdtls", {
             capabilities = capabilities,
         })
+        vim.lsp.enable("jdtls")
 
         vim.lsp.config("ts_ls", {
             capabilities = capabilities,
         })
+        vim.lsp.enable("ts_ls")
 
-        -- Configure external (system-provided) servers
-        -- These need manual vim.lsp.enable() since they're excluded from automatic_enable
+        -- Configure external (system-provided) servers, which need to be manually enabled
         vim.lsp.config("sourcekit", {
             capabilities = vim.tbl_deep_extend("force", capabilities, {
                 workspace = {
