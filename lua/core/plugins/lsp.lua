@@ -42,13 +42,22 @@ return {
             capabilities = capabilities,
             settings = {
                 pylsp = {
-                    configurationSources = { 'flake8' },
                     plugins = {
-                        pylint = { enabled = true },
-                        flake8 = { maxLineLength = 100 },
+                        -- Disable formatting/linting (handled by Ruff)
+                        pylint = { enabled = false },
+                        flake8 = { enabled = false },
                         pyflakes = { enabled = false },
                         pycodestyle = { enabled = false },
+                        autopep8 = { enabled = false },
+                        yapf = { enabled = false },
+                        black = { enabled = false },
+                        -- Keep LSP language features
                         rope_completion = { enabled = true },
+                        jedi_completion = { enabled = true },
+                        jedi_hover = { enabled = true },
+                        jedi_references = { enabled = true },
+                        jedi_signature_help = { enabled = true },
+                        jedi_symbols = { enabled = true },
                     },
                 },
             },
