@@ -27,6 +27,7 @@ return {
       clojure = { "cljstyle" },
       terraform = { "terraform" },
       scala = { "scalafmt" },
+      cpp = { "clang_format" },
     },
     --format_on_save = { timeout_ms = 500, lsp_fallback = true },
     formatters = {
